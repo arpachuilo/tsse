@@ -27,7 +27,7 @@ input
 input:focus
   outline none
   top -20px
-  border-bottom 1px solid steelblue
+  border-bottom 1px solid #c25e2c
 
 // Override skeleton container size
 .container
@@ -47,7 +47,7 @@ nav ul
   margin 0
   padding 0
   overflow hidden
-  background-color #333
+  background-color #373a42
 
 nav li
   float left
@@ -108,7 +108,7 @@ nav li a:hover
 
 // Product Card CSS.
 .productCard
-  border-bottom 2px solid grey
+  border-bottom 2px solid #373a42
 
 .productCard .image img
   display block
@@ -118,21 +118,51 @@ nav li a:hover
   cursor pointer
 
 .productCard .image i:hover
-  color red
+  color #c25e2c
 
 .chip
   word-wrap break-word
   padding 0 5px
   font-size 12px
   border-radius 8px
-  background-color #f1f1f1
+  background-color #e3e0d7
+  color black
 
 .filterLabel
   text-align center
-  background-color steelblue
+  background-color #c7d6d9
 
 .filterListing input
   margin-left 10%
 
 .filterListing div:nth-child(odd)
-  background #ccc
+  background #e3e0d7
+
+.tab
+  cursor pointer
+  display inline-block
+  border 1px solid #373a42
+  padding 4px 4px
+
+.tab.active
+  background-color #c7d6d9
+
+.tab:hover
+  background-color darken(#c7d6d9, 42%)
+
+.currentTab
+  border-top 1px solid #373a42
+
+.productImage
+  padding 5%
+  text-align center
+  vertical-align middle
+
+.filterLabel
+  cursor pointer
+
+.filterLabel:hover
+  background-color darken(#c7d6d9, 42%)
+
+.filterListing a
+  color #373a42

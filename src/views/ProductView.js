@@ -3,24 +3,39 @@ import { connect } from 'react-redux'
 
 import { removeProduct, addProduct, updateAnnotation } from '../redux/actions'
 
+import { toNamedTriple } from '../util'
+
 import ProductTable from '../components/ProductTable'
+import ProductPage from '../components/ProductPage'
 
 class ProductView extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      openProducts: []
+      openProducts: [],
+      activeTab: 0
     }
 
     this.openProductPage = this.openProductPage.bind(this)
     this.addToCompare = this.addToCompare.bind(this)
     this.updateAnnotation = this.updateAnnotation.bind(this)
+    this.switchTab = this.switchTab.bind(this)
+  }
+
+  switchTab (event) {
+    this.setState({
+      activeTab: +event.currentTarget.id
+    })
   }
 
   openProductPage (data) {
     this.setState({
       openProducts: this.state.openProducts.concat(data)
+    }, () => {
+      this.setState({
+        activeTab: this.state.openProducts.length
+      })
     })
   }
 
@@ -33,14 +48,35 @@ class ProductView extends React.Component {
   }
 
   render () {
+    let activeTab =
+      <ProductTable className='productTable'
+        data={this.props.data}
+        annotations={this.props.annotations}
+        onCompareClick={this.addToCompare}
+        onNameClick={this.openProductPage}
+        onChangeAnnotation={this.updateAnnotation} />
+    if (this.state.activeTab > 0) {
+      activeTab = <ProductPage className='productPage'
+        annotations={this.props.annotations}
+        data={this.state.openProducts[this.state.activeTab - 1]} />
+    }
     return (
       <div>
-        <ProductTable className='productTable'
-          data={this.props.data}
-          annotations={this.props.annotations}
-          onCompareClick={this.addToCompare}
-          onNameClick={this.openProductPage}
-          onChangeAnnotation={this.updateAnnotation} />
+        <div className='row tabContainer'>
+          <div id={0} className={this.state.activeTab === 0 ? 'tab active' : 'tab'} onClick={this.switchTab}>
+            <span>Results</span>
+          </div>
+          {this.state.openProducts.map((d, i) => {
+            return (
+              <div key={i} id={i + 1} className={this.state.activeTab === i + 1 ? 'tab active' : 'tab'} onClick={this.switchTab}>
+                <span>{toNamedTriple(d)}</span>
+              </div>
+            )
+          })}
+        </div>
+        <div className='row currentTab'>
+          {activeTab}
+        </div>
       </div>
     )
   }

@@ -14,18 +14,34 @@ class FilterListing extends React.Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      opened: false
+    }
+
     this.onCheckMark = this.onCheckMark.bind(this)
+    this.toggleOpen = this.toggleOpen.bind(this)
   }
 
   onCheckMark (event) {
+    console.log(event.currentTarget.value)
     this.props.onCheckMark(this.props.label, event.currentTarget.value)
   }
 
+  toggleOpen () {
+    this.setState({
+      opened: !this.state.opened
+    })
+  }
+
   render () {
+    let style = {}
+    if (!this.state.opened) {
+      style.display = 'none'
+    }
     return (
       <div className='filterContainer'>
-        <div className='row filterLabel'>{this.props.formattedLabel}</div>
-        <div className='row filterListing'>
+        <div className='row filterLabel' onClick={this.toggleOpen}>{this.props.formattedLabel}</div>
+        <div className='row filterListing' style={style}>
           {this.props.options.map((d, i) => {
             return (
               <div key={i} className='row filterField'>
@@ -33,7 +49,7 @@ class FilterListing extends React.Component {
                   value={d.field}
                   checked={d.on}
                   onChange={this.onCheckMark} />
-                <span>{d.formattedField}</span>
+                <a>{d.formattedField}</a>
               </div>
             )
           })}

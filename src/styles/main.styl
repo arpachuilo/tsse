@@ -1,5 +1,46 @@
+@import '../../node_modules/icono/dist/icono.min.css'
 @import '../../node_modules/skeleton-css/css/normalize.css'
 @import '../../node_modules/skeleton-css/css/skeleton.css'
+
+#main
+  padding-top 40px
+
+.compareView
+  position fixed
+
+// .filterView
+//   position fixed
+
+// Override skeleton font
+body
+  font-family Roboto
+
+a
+  cursor pointer
+
+// Override skeleton input fields
+input
+  padding 2px 2px 2px 5px
+  border none
+  border-bottom 1px solid #757575
+
+input:focus
+  outline none
+  top -20px
+  border-bottom 1px solid steelblue
+
+// Override skeleton container size
+.container
+  max-width 80%
+
+.page-container
+  width 100%
+
+// Navbar Related CSS
+nav
+  position fixed
+  width 100%
+  z-index 9999
 
 nav ul
   list-style-type none
@@ -12,15 +53,86 @@ nav li
   float left
   margin-bottom 0
 
-nav li a
-  display block
+nav li
+  cursor pointer
+
+nav li span
+  display inline-block
   color white
   text-align center
-  padding 14px 16px
+  vertical-align middle
+  padding 4px 16px
+  font-size 20px
   text-decoration none
 
 nav li a:hover
   background-color #111
 
-nav li .active
-  background-color #4CAF50
+.filterPanelNav
+  float left
+
+.comparePanelNav
+  float right
+
+// Panel Related CSS
+.inactivePanel
+  display none
+
+.filterPanel
+  float left
+
+.comparePanel
+  float right
+
+// Table Related CSS
+.productTable table
+  width 100%
+
+.productTable td input
+  margin-bottom 0
+
+.productTable .prevBtn
+  float left
+
+.productTable .nextBtn
+  float right
+
+.productTable .info
+  width 50%
+  margin 0 auto
+  display inline-block
+  text-align center
+
+.compare-a
+  text-align center
+
+// Product Card CSS.
+.productCard
+  border-bottom 2px solid grey
+
+.productCard .image img
+  display block
+  margin auto
+
+.productCard .image i
+  cursor pointer
+
+.productCard .image i:hover
+  color red
+
+.chip
+  word-wrap break-word
+  padding 0 5px
+  font-size 12px
+  border-radius 8px
+  background-color #f1f1f1
+
+.filterLabel
+  text-align center
+  background-color steelblue
+
+.filterListing input
+  margin-left 10%
+
+.filterListing div:nth-child(odd)
+  background #ccc

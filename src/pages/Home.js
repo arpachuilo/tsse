@@ -1,14 +1,28 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 
-import { List } from '../views/List'
+import ProductView from '../views/ProductView'
+import FilterView from '../views/FilterView'
+import CompareView from '../views/CompareView'
 
 class Home extends React.Component {
   render () {
+    let filterPanelClassName = 'two columns filterPanel'
+    if (!this.props.filterPanelActive) filterPanelClassName += ' inactivePanel'
+    let comparePanelClassName = 'two columns comparePanel'
+    if (!this.props.comparePanelActive) comparePanelClassName += ' inactivePanel'
+
     return (
-      <div className='container'>
-        <div className='row'>
-          <List items={this.props.items} />
+      <div className='row page-container'>
+        <div className={filterPanelClassName}>
+          <FilterView />
+        </div>
+        <div className='eight columns container'>
+          <div className='row'>
+            <ProductView />
+          </div>
+        </div>
+        <div className={comparePanelClassName}>
+          <CompareView />
         </div>
       </div>
     )
@@ -16,18 +30,13 @@ class Home extends React.Component {
 }
 
 Home.defaultProps = {
-  items: []
+  filterPanelActive: true,
+  comparePanelActive: true
 }
 
 Home.propTypes = {
-  items: PropTypes.any
+  filterPanelActive: PropTypes.bool,
+  comparePanelActive: PropTypes.bool
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    items: state.list.items
-  }
-}
-
-export default connect(mapStateToProps, {})(Home)
+export default Home

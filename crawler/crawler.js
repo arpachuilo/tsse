@@ -1,3 +1,4 @@
+/* eslint-disable */
 var bsService = new BSAutoSwitch(['elkanacmmmdgbnhdjopfdeafchmhecbf'])
 var extractedDataArray = []
 
@@ -17,7 +18,9 @@ function addMetadata(err, extractedData) {
   data.neweggUrl = extractedData.location
 
   // Set product specific information
-  data.thumbnail = extractedData.favicon.location
+  if ('main_images' in extractedData) {
+    data.image = extractedData.main_images[0].location
+  }
   extractedData.specifications_table.forEach(function (d, i) {
     d.specifications.forEach(function (f, j) {
       var key = f.name.split(' ').join('_')

@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerStateReducer } from 'redux-router'
-import listReducer from './listReducer'
+import filterableReducer from './filterableReducer'
+import compareReducer from './compareReducer'
+import annotationReducer from './annotationReducer'
 
 export default combineReducers({
-  list: listReducer,
+  annotations: annotationReducer,
+  comparing: compareReducer,
+  data: filterableReducer,
   router: routerStateReducer
 })

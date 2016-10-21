@@ -14,8 +14,13 @@ class ProductCard extends React.Component {
         : ''
     }
 
+    this.focusInput = this.focusInput.bind(this)
     this.onRemoveClick = this.onRemoveClick.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
+  }
+
+  focusInput () {
+    this.refs.input.focus()
   }
 
   onRemoveClick () {
@@ -72,7 +77,8 @@ class ProductCard extends React.Component {
           })}
         </div>
         <div className='row annotation'>
-          <input onChange={this.onInputChange} className='u-full-width annotationField' value={this.state.annotation} />
+          <i className='icono-comment' style={{float: 'left'}} onClick={this.focusInput} />
+          <input ref='input' onChange={this.onInputChange} className='annotationField nine columns' value={this.state.annotation} />
         </div>
       </div>
     )

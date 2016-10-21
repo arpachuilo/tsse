@@ -15,7 +15,12 @@ class ProductPage extends React.Component {
         : ''
     }
 
+    this.focusInput = this.focusInput.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
+  }
+
+  focusInput () {
+    this.refs.input.focus()
   }
 
   onInputChange (event) {
@@ -87,26 +92,26 @@ class ProductPage extends React.Component {
           </div>
         </div>
         <div className='row specsTable'>
-          {config.specsToShow.map((d, i) => {
-            let key = d.split('_').join(' ')
-            let value = data[d]
-            let chipString = key + ': ' + value
-            let style = {}
-            if (value === '-') style.display = 'none'
-            return (
-              <span key={i} className='chip' style={style}>
-                {chipString}
-              </span>
-            )
-          })}
+          <ul>
+            {config.specsToShow.map((d, i) => {
+              let key = d.split('_').join(' ')
+              let value = data[d]
+              let className = 'yo'
+              let style = {}
+              if (value === '-') style.display = 'none'
+              return (
+                <li key={i} className={className} style={style}>
+                  <span style={{fontWeight: 'bold'}}>{key + ': '}</span>
+                  <span>{value}</span>
+                </li>
+              )
+            })}
+          </ul>
         </div>
+        <br />
         <div className='row annotation'>
-          <div className='two columns'>
-            <span>Annotation: </span>
-          </div>
-          <div className='ten columns'>
-            <input onChange={this.onInputChange} className='u-full-width annotationField' value={this.state.annotation} />
-          </div>
+          <i className='icono-comment' style={{float: 'left'}} onClick={this.focusInput} />
+          <input ref='input' onChange={this.onInputChange} className='u-full-width annotationField eleven columns' value={this.state.annotation} />
         </div>
       </div>
     )

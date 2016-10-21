@@ -18,12 +18,16 @@ class FilterListing extends React.Component {
       opened: false
     }
 
+    this.onClick = this.onClick.bind(this)
     this.onCheckMark = this.onCheckMark.bind(this)
     this.toggleOpen = this.toggleOpen.bind(this)
   }
 
+  onClick (event) {
+    this.props.onCheckMark(this.props.label, event.currentTarget.dataset.value)
+  }
+
   onCheckMark (event) {
-    console.log(event.currentTarget.value)
     this.props.onCheckMark(this.props.label, event.currentTarget.value)
   }
 
@@ -40,16 +44,18 @@ class FilterListing extends React.Component {
     }
     return (
       <div className='filterContainer'>
-        <div className='row filterLabel' onClick={this.toggleOpen}>{this.props.formattedLabel}</div>
+        <div className='row filterLabel' onClick={this.toggleOpen}>
+          <span>{this.props.formattedLabel}</span>
+        </div>
         <div className='row filterListing' style={style}>
           {this.props.options.map((d, i) => {
             return (
               <div key={i} className='row filterField'>
-                <input type='radio'
+                <input type='checkbox'
                   value={d.field}
                   checked={d.on}
                   onChange={this.onCheckMark} />
-                <a>{d.formattedField}</a>
+                <a onClick={this.onClick} data-value={d.field}>{d.formattedField}</a>
               </div>
             )
           })}

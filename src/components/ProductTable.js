@@ -68,12 +68,18 @@ class ProductCell extends React.Component {
     this.state = {
       annotation: (has(props.annotations, props.data.id))
         ? props.annotations[props.data.id]
-        : ''
+        : '',
+      compareText: 'Compare'
     }
 
+    this.focusInput = this.focusInput.bind(this)
     this.onNameClick = this.onNameClick.bind(this)
     this.onCompareClick = this.onCompareClick.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
+  }
+
+  focusInput () {
+    this.refs.input.focus()
   }
 
   onNameClick () {
@@ -82,6 +88,11 @@ class ProductCell extends React.Component {
 
   onCompareClick () {
     this.props.onCompareClick(this.props.data)
+    this.setState({
+      compareText: (this.state.compareText === 'Compare')
+        ? 'Remove'
+        : 'Compare'
+    })
   }
 
   onInputChange (event) {
@@ -93,12 +104,20 @@ class ProductCell extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     let annotation = ''
+    let compareText = 'Compare'
     if (has(nextProps.annotations, nextProps.data.id)) {
       annotation = nextProps.annotations[nextProps.data.id]
     }
 
+    let currentCompareItem = nextProps.currentCompare.find((d) => {
+      return d.id === nextProps.data.id
+    })
+    if (typeof currentCompareItem !== 'undefined') {
+      compareText = 'Remove'
+    }
     this.setState({
-      annotation
+      annotation,
+      compareText
     })
   }
 
@@ -120,10 +139,11 @@ class ProductCell extends React.Component {
         </div>
         <div className='row'>
           <div className='three columns compare-a'>
-            <a onClick={this.onCompareClick}>Compare</a>
+            <a onClick={this.onCompareClick}>{this.state.compareText}</a>
           </div>
           <div className='nine columns'>
-            <input onChange={this.onInputChange} className='u-full-width annotationField' value={this.state.annotation} />
+            <i className='icono-comment' style={{float: 'left'}} onClick={this.focusInput} />
+            <input ref='input' onChange={this.onInputChange} className='u-full-width annotationField ten columns' value={this.state.annotation} />
           </div>
         </div>
       </Cell>
@@ -140,13 +160,14 @@ ProductCell.defaultProps = {
 
 ProductCell.propTypes = {
   data: PropTypes.any,
+  currentCompare: PropTypes.any,
   annotations: PropTypes.any,
   columnKey: PropTypes.any,
   onNameClick: PropTypes.func,
   onCompareClick: PropTypes.func,
   onChangeAnnotation: PropTypes.func
 }
-//             <i className='icono-bookmarkEmpty compareButton' />
+// <i className='icono-bookmarkEmpty compareButton' />
 export class ProductTable extends React.Component {
   constructor (props) {
     super(props)
@@ -251,6 +272,7 @@ export class ProductTable extends React.Component {
                 Name
               </HeaderCell>}>
             <ProductCell
+              currentCompare={this.props.currentCompare}
               annotations={this.props.annotations}
               onChangeAnnotation={this.props.onChangeAnnotation}
               onNameClick={this.props.onNameClick}
@@ -333,6 +355,7 @@ ProductTable.defaultProps = {
   className: '',
   filters: {},
   data: [],
+  currentCompare: [],
   annotations: {}
 }
 
@@ -343,6 +366,7 @@ ProductTable.propTypes = {
   className: PropTypes.string,
   filters: PropTypes.any,
   data: PropTypes.array,
+  currentCompare: PropTypes.array,
   annotations: PropTypes.any
 }
 

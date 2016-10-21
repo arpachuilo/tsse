@@ -48,7 +48,7 @@ class Home extends React.Component {
           (this.props.comparePanelActive)
           ? (
             <div className={comparePanelClassName}>
-              <CompareView />
+              <CompareView className={comparePanelClassName} />
             </div>
           )
           : undefined

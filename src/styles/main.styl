@@ -103,6 +103,10 @@ nav li a:hover
   display inline-block
   text-align center
 
+.icono-comment:hover
+  cursor pointer
+  color #c25e2c
+
 .compare-a
   text-align center
 
@@ -122,15 +126,11 @@ nav li a:hover
 
 .chip
   word-wrap break-word
+  display block
   padding 0 5px
   font-size 12px
   border-radius 8px
-  background-color #e3e0d7
   color black
-
-.filterLabel
-  text-align center
-  background-color #c7d6d9
 
 .filterListing input
   margin-left 10%
@@ -147,6 +147,16 @@ nav li a:hover
 .tab.active
   background-color #c7d6d9
 
+.tab i
+  margin-left 8px
+  transform scale(0.6, 0.6)
+  width 0
+  height 0
+
+.tab i:hover
+  color red
+  cursor pointer
+
 .tab:hover
   background-color darken(#c7d6d9, 42%)
 
@@ -159,10 +169,28 @@ nav li a:hover
   vertical-align middle
 
 .filterLabel
+  background-color #c7d6d9
   cursor pointer
+  margin-top 1px
+
+.filterLabel span
+  font-weight bold
+  margin-left 10px
 
 .filterLabel:hover
   background-color darken(#c7d6d9, 42%)
 
+.filterListing input
+  cursor pointer
+  margin-right 5px
+
 .filterListing a
   color #373a42
+
+.specsTable ul
+  list-style none
+  display inline-block
+.specsTable li
+  width 30%
+  display inline-block
+  margin-bottom 0

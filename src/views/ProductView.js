@@ -40,7 +40,14 @@ class ProductView extends React.Component {
   }
 
   addToCompare (data) {
-    this.props.addProduct(data)
+    let cItem = this.props.currentCompare.find((d) => {
+      return d.id === data.id
+    })
+    if (typeof cItem !== 'undefined') {
+      this.props.removeProduct(data)
+    } else {
+      this.props.addProduct(data)
+    }
   }
 
   updateAnnotation (id, annotation) {
@@ -51,6 +58,7 @@ class ProductView extends React.Component {
     let activeTab =
       <ProductTable className='productTable'
         data={this.props.data}
+        currentCompare={this.props.currentCompare}
         annotations={this.props.annotations}
         onCompareClick={this.addToCompare}
         onNameClick={this.openProductPage}
@@ -84,6 +92,7 @@ class ProductView extends React.Component {
 
 ProductView.defaultProps = {
   data: [],
+  currentCompare: [],
   annotations: {}
 }
 
@@ -92,13 +101,15 @@ ProductView.propTypes = {
   annotations: PropTypes.any,
   removeProduct: PropTypes.func.isRequired,
   addProduct: PropTypes.func.isRequired,
-  updateAnnotation: PropTypes.func.isRequired
+  updateAnnotation: PropTypes.func.isRequired,
+  currentCompare: PropTypes.any
 }
 
 const mapStateToProps = (state) => {
   return {
     data: state.data.filtered,
-    annotations: state.annotations.annotations
+    annotations: state.annotations.annotations,
+    currentCompare: state.comparing.products
   }
 }
 

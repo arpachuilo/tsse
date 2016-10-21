@@ -7,8 +7,9 @@ import ProductCard from '../components/ProductCard'
 
 class CompareView extends React.Component {
   render () {
+    let className = 'row compareView ' + this.props.className
     return (
-      <div className='row compareView'>
+      <div className={className}>
         {this.props.data.map((d, i) => {
           return (
             <ProductCard key={d.id} data={d}
@@ -24,11 +25,13 @@ class CompareView extends React.Component {
 }
 
 CompareView.defaultProps = {
+  className: '',
   data: [],
   openProductPage: () => {}
 }
 
 CompareView.propTypes = {
+  className: PropTypes.string,
   data: PropTypes.any,
   annotations: PropTypes.any,
   openProductPage: PropTypes.func,
